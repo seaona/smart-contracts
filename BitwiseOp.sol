@@ -50,4 +50,17 @@ contract BitwiseOps {
         return x >> bits;
     }
 
+    function getLastNBits(uint x, uint n) external pure returns (uint) {
+        // x        = 1101 = 13 and n = 3
+        // mask     = 0111
+        // x & mask = 0100
+
+        // 1 --> 1000 - 1 --> 0111
+        uint mask = (1 << n) -1;
+        return x & mask;
+     }
+
 }
+
+
+
