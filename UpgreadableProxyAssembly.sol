@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.13;
 
-// wrong way to build upgradable proxy
-
 contract CounterV1 {
     // we need to add these 2 lines, so the storage layout matches with the Buggy Proxy
     address public implementation;
