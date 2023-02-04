@@ -1,10 +1,10 @@
 const BN = require("bn.js");
 const IERC20 = artifacts.require("IERC20");
 const TestUniswap = artifacts.require("TestUniswap");
+const { DAI_WHALE } = require("./config")
 
 contract("TestUniswap", (accounts) => {
     const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F"
-    const DAI_WHALE = "0x748de14197922c4ae258c7939c7739f3ff1db573"
     const WBTC = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
 
     const WHALE = DAI_WHALE;
