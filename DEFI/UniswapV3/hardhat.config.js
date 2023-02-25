@@ -1,9 +1,25 @@
 require("@nomicfoundation/hardhat-toolbox");
 require('dotenv').config()
 
+const DEFAULT_COMPILER_SETTINGS =
+  {
+    version: "0.7.6",
+    settings: {
+      evmVersion: "istanbul",
+      optimizer: {
+        enabled: true,
+        runs: 1_000_000,
+      },
+      metadata: {
+        bytecodeHash: "none",
+      }
+    },
+  }
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.7.6",
+  solidity: {
+    compilers: [DEFAULT_COMPILER_SETTINGS],
+  },
   networks: {
     hardhat: {
       forking: {
