@@ -3,7 +3,7 @@ const { ethers } = require("hardhat")
 
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F"
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-const DAI_WHALE = "0x9D0163e76BbCf776001E639d65F573949a53AB03"
+const DAI_WHALE = "0x8EB8a3b98659Cce290402893d0123abb75E3ab28"
 const USDC_WHALE = "0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549"
 
 describe("LiquidityExamples", () => {
@@ -35,8 +35,8 @@ describe("LiquidityExamples", () => {
 
     const usdcWhale = await ethers.getSigner(USDC_WHALE)
 
-    const daiAmount = 100n * 10n ** 18n;
-    const usdcAmount = 100n * 10n ** 6n;
+    const daiAmount = 1000n * 10n ** 18n;
+    const usdcAmount = 1000n * 10n ** 6n;
 
     expect(await dai.balanceOf(daiWhale.address)).to.gte(daiAmount);
     expect(await usdc.balanceOf(usdcWhale.address)).to.gte(usdcAmount);
@@ -67,6 +67,29 @@ describe("LiquidityExamples", () => {
       "USDC balance after add liquidity", 
       await usdc.balanceOf(accounts[0].address)
     )
-  })
+  });
+
+  it("collectAllFees", async () => {
+    const tokenId = await liquidityExamples.tokenId();
+
+    console.log("tokenId", tokenId);
+
+    await liquidityExamples.collectAllFees();
+  });
+
+  it("increaseLiquidityCurrentPosition", async () => {
+    const daiAmount = 20n * 10n ** 18n;
+    const usdcAmount = 20n * 10n ** 6n;
+
+    await dai
+      .connect(accounts[0])
+      .approve(liquidityExamples.address, daiAmount);
+    await usdc
+      .connect(accounts[0])
+      .approve(liquidityExamples.address, usdcAmount);
+
+    await liquidityExamples.increaseLiquidityCurrentRange(daiAmount, usdcAmount);
+    
+  });
 
 })
